@@ -11,7 +11,7 @@ import com.kwecko.simpletodolist.model.Todo;
 public class TodoListAdapter extends ListAdapter<Todo, TodoItemViewHolder> {
 
 
-    protected TodoListAdapter(@NonNull DiffUtil.ItemCallback<Todo> diffCallback) {
+    public TodoListAdapter(@NonNull DiffUtil.ItemCallback<Todo> diffCallback) {
         super(diffCallback);
     }
 
@@ -27,7 +27,8 @@ public class TodoListAdapter extends ListAdapter<Todo, TodoItemViewHolder> {
         holder.bind(current.getText());
     }
 
-    static class WordDiff extends DiffUtil.ItemCallback<Todo>{
+    public static class WordDiff extends DiffUtil.ItemCallback<Todo>{
+
         @Override
         public boolean areItemsTheSame(@NonNull Todo oldItem, @NonNull Todo newItem) {
             return oldItem == newItem;
