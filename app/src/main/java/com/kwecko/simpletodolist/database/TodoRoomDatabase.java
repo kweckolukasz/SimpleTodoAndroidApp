@@ -15,9 +15,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Database(entities = Todo.class, version = 1, exportSchema = false)
 public abstract class TodoRoomDatabase extends RoomDatabase {
+
+    static Logger logger = Logger.getLogger(TodoRoomDatabase.class.getName());
 
     public abstract TodoDAO todoDAO();
 
@@ -27,6 +31,7 @@ public abstract class TodoRoomDatabase extends RoomDatabase {
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     public static TodoRoomDatabase getDatabase(final Context context) {
+        logger.log(Level.INFO, "inside builder");
         if (INSTANCE == null) {
             synchronized (TodoRoomDatabase.class) {
                 if (INSTANCE == null) {
@@ -46,6 +51,7 @@ public abstract class TodoRoomDatabase extends RoomDatabase {
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
             databaseWriteExecutor.execute(()->{
+                logger.log(Level.INFO, "inside DB Callback");
                 TodoDAO todoDAO = INSTANCE.todoDAO();
                 todoDAO.deleteAll();
 
@@ -61,6 +67,8 @@ public abstract class TodoRoomDatabase extends RoomDatabase {
                 for (Todo todo :
                         todos) {
                     todoDAO.insertTodo(todo);
+                    logger.log(Level.INFO, "inserted: "+todo.getText());
+
                 }
 
 
