@@ -22,4 +22,8 @@
     <style name="Theme.SimpleToDoList.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.SimpleToDoList.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="todo_item_card">
+
+    </style>
 </resources>
